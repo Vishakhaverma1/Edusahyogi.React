@@ -9,7 +9,7 @@ const app = express();
 dotenv.config({path : "./config/config.env"});
 
 app.use(cors({
-    origin: "*",
+    origin: [process.env.FRONTEND_URL],
     methods : ["POST","GET","PUT","DELETE"],
     credentials : true,
 })
@@ -26,6 +26,7 @@ app.get("/", (req, res, next)=>{return res.status(200).json({
 })})
 dbConnection();
 app.use(errorMiddleware)
+
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server Running On Port ${process.env.PORT}`);
