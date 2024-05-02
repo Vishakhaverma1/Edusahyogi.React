@@ -1,4 +1,31 @@
-import app from "./app.js";
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import {dbConnection} from "./database/dbConnection.js";
+import { errorMiddleware } from "./middlewares/error.js";
+import userRouter from "./routes/user.js";
+
+const app = express();
+dotenv.config({path : "./config/config.env"});
+
+app.use(cors({
+    origin: "*",
+    methods : ["POST","GET","PUT","DELETE"],
+    credentials : true,
+})
+);
+
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+
+app.use('/',userRouter);
+
+app.get("/", (req, res, next)=>{return res.status(200).json({
+    success: true,
+    message: "HELLO WORLD AGAIN"
+})})
+dbConnection();
+app.use(errorMiddleware)
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server Running On Port ${process.env.PORT}`);
