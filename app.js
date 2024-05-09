@@ -9,7 +9,7 @@ const app = express();
 dotenv.config({path : "./config/config.env"});
 
 app.use(cors({
-    origin: "https://edusahyogi.netlify.app",
+    origin: "https://edusahyogi.in",
     methods : ["POST","GET","DELETE","PUT"],
     credentials : true,
 })
