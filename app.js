@@ -4,13 +4,14 @@ import dotenv from "dotenv";
 import {dbConnection} from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./routes/user.js";
+import paymentRoute from "./routes/paymentRoutes.js";
 
 const app = express();
 dotenv.config({path : "./config/config.env"});
 
 app.use(cors({
-    origin: "https://edusahyogi.netlify.app",
-    methods : ["POST","GET","DELETE","PUT"],
+    origin: [process.env.FRONTEND_URL],
+    methods : ["POST"],
     credentials : true,
 })
 );
@@ -27,5 +28,12 @@ app.get("/", (req, res, next)=>{return res.status(200).json({
 
 dbConnection();
 
-app.use(errorMiddleware)
+app.use("/api", paymentRoute);
+
+app.get("/api/getkey", (req, res) =>
+  res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+);
+
+app.use(errorMiddleware);
+
 export default app;
