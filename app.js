@@ -10,7 +10,7 @@ const app = express();
 dotenv.config({path : "./config/config.env"});
 
 app.use(cors({
-    origin: https://edusahyogi.in,
+    origin: "https://edusahyogi.in",
     methods : ["POST"],
     credentials : true,
 })
