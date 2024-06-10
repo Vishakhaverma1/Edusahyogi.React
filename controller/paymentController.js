@@ -63,8 +63,9 @@ export const paymentVerification = async (req, res) => {
 
     // Include username, amount, and date in the redirect URL
     res.redirect(
-      `http://localhost:5173/Paymentsuccess?reference=${razorpay_payment_id}&username=${username}&amount=${order.amount / 100}&date=${date}`
+      `https://edusahyogi.in/Paymentsuccess?reference=${razorpay_payment_id}&username=${username}&amount=${order.amount / 100}&date=${date}`
     );
+    
   } else {
     res.status(400).json({
       success: false,
